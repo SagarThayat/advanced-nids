@@ -1,0 +1,64 @@
+/* App specific styles - enhanced for NIDS */
+.app-container {
+    min-height: 100vh;
+}
+
+.charts-container {
+    animation: slide-up 0.8s ease-out;
+}
+
+.stats-container {
+    animation: slide-up 1s ease-out;
+}
+
+.alerts-container {
+    animation: slide-up 1.2s ease-out;
+}
+
+/* Additional responsive utilities */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading spinner for charts */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: var(--neon-blue);
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid var(--neon-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px;
+}
+
+.empty-state svg {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
