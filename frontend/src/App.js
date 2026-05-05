@@ -7,8 +7,7 @@ import {
 import './App.css';
 import './index.css';
 
-// ✅ ADD THIS LINE
-const API_URL = process.env.REACT_APP_API_URL || "https://advanced-nids.onrender.com";
+const API_URL = "http://127.0.0.1:5000";
 
 function App() {
     const [status, setStatus] = useState({ stats: [], alerts: [] });
@@ -17,8 +16,6 @@ function App() {
 
     const fetchData = async () => {
         try {
-            // ❌ OLD: axios.get('/api/status')
-            // ✅ NEW:
             const res = await axios.get(`${API_URL}/api/status`);
             setStatus(res.data);
             setLoading(false);
@@ -36,12 +33,10 @@ function App() {
 
     const startBackend = async () => {
         try {
-            // ❌ OLD: axios.get('/start')
-            // ✅ NEW:
             await axios.get(`${API_URL}/start`);
             setBackendStatus('Running');
         } catch (e) {
-            alert('Backend not reachable');
+            alert('Run backend as ADMIN: cd backend && python app.py');
         }
     };
 
@@ -81,12 +76,12 @@ function App() {
                         <ResponsiveContainer width="100%" height={350}>
                             <LineChart data={chartData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                                <XAxis dataKey="ip" stroke="var(--neon-blue)" />
-                                <YAxis stroke="var(--neon-purple)" />
+                                <XAxis dataKey="ip" stroke="#00d4ff" />
+                                <YAxis stroke="#a100ff" />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey="pkts" stroke="var(--neon-blue)" strokeWidth={3} />
-                                <Line type="monotone" dataKey="ports" stroke="var(--neon-green)" strokeWidth={3} />
+                                <Line type="monotone" dataKey="pkts" stroke="#ff7300" strokeWidth={3} />
+                                <Line type="monotone" dataKey="ports" stroke="#00ff73" strokeWidth={3} />
                             </LineChart>
                         </ResponsiveContainer>
                     )}
@@ -105,14 +100,14 @@ function App() {
                                 <XAxis dataKey="ip" />
                                 <YAxis />
                                 <Tooltip />
-                                <Area type="monotone" dataKey="ports" stroke="var(--neon-green)" fillOpacity={0.3} />
+                                <Area type="monotone" dataKey="ports" stroke="#00ff73" fillOpacity={0.3} />
                             </AreaChart>
                         </ResponsiveContainer>
                     )}
                 </div>
             </div>
 
-            <div className="alerts-section alerts-container">
+            <div className="alerts-section">
                 <div className="chart-card alerts-card">
                     <h3>🚨 Recent Alerts ({recentAlerts.length})</h3>
                     {recentAlerts.length > 0 ? (
@@ -132,7 +127,7 @@ function App() {
             </div>
 
             {!loading && status.stats && status.stats.length > 0 && (
-                <div className="stats-section stats-container">
+                <div className="stats-section">
                     <div className="chart-card stats-card">
                         <h3>📈 Live Network Stats</h3>
                         <table className="stats-table">
@@ -167,3 +162,4 @@ function App() {
 }
 
 export default App;
+
